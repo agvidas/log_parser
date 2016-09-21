@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/parser'
+
+parser = Parser.new(ARGV[0])
+
+parser.read_log_file
+
+parser.order_most_visits
+
+puts '\n'
+
+parser.order_unique_visits
