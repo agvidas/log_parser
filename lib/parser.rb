@@ -16,9 +16,16 @@ class Parser
 
   def order_most_visits
     unique_urls.each do |url|
-      most_visits << ([url, amount_of_visits(url)])
+      most_visits << ([url, amount_of_visits(url).size])
     end
-    most_visits.sort { |a, b| b.last <=> a.last }
+    sort_out(most_visits)
+  end
+
+  def order_unique_visits
+    unique_urls.each do |url|
+      unique_visits << ([url, amount_of_unique_visits(url)])
+    end
+    sort_out(unique_visits)
   end
 
   private
@@ -33,7 +40,15 @@ class Parser
   end
 
   def amount_of_visits(url)
-    log_entries.select { |entry| entry.url == url }.size
+    log_entries.select { |entry| entry.url == url }
+  end
+
+  def amount_of_unique_visits(url)
+    amount_of_visits(url).map(&:ip_address).uniq.size
+  end
+
+  def sort_out(visits)
+    visits.sort { |a, b| b.last <=> a.last }
   end
 
 end

@@ -6,8 +6,12 @@ parser = Parser.new(ARGV[0])
 
 parser.read_log_file
 
-parser.order_most_visits
+parser.order_most_visits.each do |url, visits|
+  puts "#{url} #{visits} visits"
+end
 
-puts '\n'
+puts "\n"
 
-parser.order_unique_visits
+parser.order_unique_visits.each do |url, visits|
+  puts "#{url} #{visits} unique views"
+end
